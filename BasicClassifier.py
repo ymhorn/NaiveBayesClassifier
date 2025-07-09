@@ -1,3 +1,5 @@
+from typing import final
+
 import pandas as pd
 from pprint import pprint
 
@@ -56,7 +58,15 @@ class NaiveBayes:
             else:
                 print("Not a valid option please start again")
                 return self.probability()
-        return input_dict
+        final_dict = {}
+        for keys in self.create_dict_values():
+            num = 1
+            for key,value in input_dict.items():
+                num *= self.create_dict_values()[keys][key][value]
+            final_dict[keys] = num * self.create_dict_class()[keys]
+        print(final_dict)
+        return max(final_dict,key=final_dict.get)
+
 
 
 
