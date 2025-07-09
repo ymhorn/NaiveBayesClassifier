@@ -46,12 +46,21 @@ class NaiveBayes:
         return dict1
 
     def probability(self):
-        for k,v in self.create_dict_values().items():
-            for key,value in v.items():
-                lst = list(value.keys())
-                return lst
+        column_options = list(self.create_dict_values().values())[0]
+        input_dict = {}
+        for k,v in column_options.items():
+            options = dict(enumerate(list(v.keys())))
+            choice = input(f"{k}:\n {options}\n")
+            if int(choice) in options.keys():
+                input_dict[k] = options[int(choice)]
+            else:
+                print("Not a valid option please start again")
+                return self.probability()
+        return input_dict
+
 
 
 
 a = NaiveBayes('computer_customers.csv','Buy_Computer','id')
 pprint(a.probability())
+
