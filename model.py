@@ -1,16 +1,12 @@
 import pandas as pd
 from pprint import pprint
 
-# computer_buyers = pd.read_csv('computer_customers.csv',index_col='id')
-# computer_buyers.sort_index(inplace=True)
-# split = computer_buyers.groupby('Buy_Computer').get_group('yes')
-# print(split)
-
-class NaiveBayes:
-    def __init__(self,path,classifier,drop_columns):
+class Model:
+    def __init__(self,path,classifier,drop_columns = None):
         self.classifier = classifier
         self.DF = pd.read_csv(path)
-        self.DF.drop(drop_columns,axis=1,inplace=True)
+        if drop_columns:
+            self.DF.drop(drop_columns,axis=1,inplace=True)
 
     @staticmethod
     def unique_values(dataframe,column):
@@ -31,13 +27,7 @@ class NaiveBayes:
         columns = self.DF.columns
         return columns.drop(classifier)
 
-    def sample(self,fraction):
-        return self.DF.sample(frac=fraction)
-
-    def left_sample(self,sample):
-        return self.DF[~self.DF.index.isin(sample.index)]
-
-    def create_dict_class(self):
+    def dict_class(self):
         class_dict = {}
         all_values = self.amount_of_all_values(self.DF)
         for val in self.unique_values(self.DF,self.classifier):
@@ -45,7 +35,7 @@ class NaiveBayes:
             class_dict[val] = unique_values / all_values
         return class_dict
 
-    def create_dict_values(self):
+    def dict_values(self):
         dict1 = {}
         for val in self.unique_values(self.DF,self.classifier):
             split_df = self.split_dataframe_by_value(self.classifier,val)
@@ -70,7 +60,7 @@ class NaiveBayes:
         return dict1
 
     def input(self):
-        column_options = list(self.create_dict_values().values())[0]
+        column_options = list(self.dict_values().values())[0]
         input_dict = {}
         for k,v in column_options.items():
             options = dict(enumerate(list(v.keys())))
@@ -82,26 +72,20 @@ class NaiveBayes:
                 return self.input()
         return input_dict
 
-    def result(self,input_dictionary):
-        final_dict = {}
-        for keys in self.create_dict_values():
-            num = 1
-            for key,value in input_dictionary.items():
-                num *= self.create_dict_values()[keys][key][value]
-            final_dict[keys] = num * self.create_dict_class()[keys]
-        print(final_dict)
-        return max(final_dict,key=final_dict.get)
 
     def test(self):
-        sample = self.sample(0.7)
-        to_sample_with = self.left_sample(sample)
+        samp = self.sample(0.7)
+        to_sample_with = self.left_sample(samp)
+
+    def sample(self,fraction):
+        return self.DF.sample(frac=fraction)
+
+    def left_sample(self,sample):
+        return self.DF[~self.DF.index.isin(sample.index)]
 
 
 
 
-
-
-
-a = NaiveBayes('computer_customers.csv','Buy_Computer','id')
+a = Model('computer_customers.csv','Buy_Computer','id')
 pprint(a.test())
 
