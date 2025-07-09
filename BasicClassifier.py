@@ -47,7 +47,7 @@ class NaiveBayes:
             dict1[val] = dict2
         return dict1
 
-    def probability(self):
+    def input(self):
         column_options = list(self.create_dict_values().values())[0]
         input_dict = {}
         for k,v in column_options.items():
@@ -57,11 +57,14 @@ class NaiveBayes:
                 input_dict[k] = options[int(choice)]
             else:
                 print("Not a valid option please start again")
-                return self.probability()
+                return self.input()
+        return input_dict
+
+    def result(self,input_dictionary):
         final_dict = {}
         for keys in self.create_dict_values():
             num = 1
-            for key,value in input_dict.items():
+            for key,value in input_dictionary.items():
                 num *= self.create_dict_values()[keys][key][value]
             final_dict[keys] = num * self.create_dict_class()[keys]
         print(final_dict)
@@ -72,5 +75,5 @@ class NaiveBayes:
 
 
 a = NaiveBayes('computer_customers.csv','Buy_Computer','id')
-pprint(a.probability())
+pprint(a.result(a.input()))
 
