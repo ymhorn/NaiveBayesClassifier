@@ -14,4 +14,4 @@ class ProbabilityCalculater:
             for key, value in self.input_dict.items():
                 num *= self.model.dict_values()[keys][key][value]
             final_dict[keys] = num * self.model.dict_class()[keys]
-        return final_dict,max(final_dict,key=final_dict.get)
+        return max(final_dict,key=final_dict.get)

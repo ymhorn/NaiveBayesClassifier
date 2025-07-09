@@ -86,6 +86,10 @@ class Model:
 
 
 
-a = Model('computer_customers.csv','Buy_Computer','id')
-pprint(a.test())
+# a = Model('computer_customers.csv','Buy_Computer','id')
+# pprint(a.test())
+
+# df = pd.read_csv('computer_customers.csv')
+#
+# print(df.to_dict('index'))
 
