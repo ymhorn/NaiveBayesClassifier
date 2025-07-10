@@ -25,6 +25,6 @@ class UserInput:
         calculate = ProbabilityCalculater(self.model)
         return calculate.probability(self.create_dict())
 
-a = Model('computer_customers.csv','Buy_Computer','id')
-b = UserInput(a)
-print(b.probability())
+# a = Model('computer_customers.csv','Buy_Computer','id')
+# b = UserInput(a)
+# print(b.probability())

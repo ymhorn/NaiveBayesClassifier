@@ -16,6 +16,7 @@ class Tester:
     def data_frame_to_dict(dataframe):
         return dataframe.to_dict('index')
 
+
     def test(self):
         right = 0
         wrong = 0
@@ -32,11 +33,11 @@ class Tester:
         return right / (right + wrong)
 
 
-model = Model('phishing.csv','class','Index')
-
-tester = Tester(model)
-
-print(tester.test())
+# model = Model('phishing.csv','class','Index')
+#
+# tester = Tester(model)
+#
+# print(tester.test())
 
 
 
