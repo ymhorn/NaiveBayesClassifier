@@ -1,5 +1,3 @@
-import pandas as pd
-from pprint import pprint
 from model import Model
 
 class ProbabilityCalculater:

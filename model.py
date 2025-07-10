@@ -1,5 +1,4 @@
 import pandas as pd
-from pprint import pprint
 
 class Model:
     def __init__(self,path,classifier,drop_columns = None):
@@ -59,25 +58,4 @@ class Model:
             dict1[val] = dict2
         return dict1
 
-    def input(self):
-        column_options = list(self.dict_values().values())[0]
-        input_dict = {}
-        for k,v in column_options.items():
-            options = dict(enumerate(list(v.keys())))
-            choice = input(f"{k}:\n {options}\n")
-            if int(choice) in options.keys():
-                input_dict[k] = options[int(choice)]
-            else:
-                print("Not a valid option please start again")
-                return self.input()
-        return input_dict
-
-
-
-# a = Model('computer_customers.csv','Buy_Computer','id')
-# pprint(a.test())
-
-# df = pd.read_csv('computer_customers.csv')
-#
-# print(df.to_dict('index'))
 

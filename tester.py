@@ -1,11 +1,9 @@
-import pandas as pd
-from pprint import pprint
 from model import Model
 from probabilityCalculater import ProbabilityCalculater
 
 class Tester:
-    def __init__(self,model):
-        self.model = model
+    def __init__(self,original_model):
+        self.model = original_model
 
     def sample(self,fraction):
         return self.model.DF.sample(frac=fraction)
