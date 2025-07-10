@@ -25,16 +25,16 @@ class Tester:
         original_dataframe = self.model.DF
         self.model.DF = test_sample
         trial_data = self.left_sample(test_sample,original_dataframe)
+        probable = ProbabilityCalculater(self.model)
         for k,v in self.data_frame_to_dict(trial_data.drop(self.model.classifier,axis=1)).items():
-            probable = ProbabilityCalculater(self.model,v)
-            if probable.probability() == str(trial_data.loc[k,self.model.classifier]):
+            if str(probable.probability(v)) == str(trial_data.loc[k,self.model.classifier]):
                 right += 1
             else:
                 wrong += 1
         return right / (right + wrong)
 
 
-model = Model('computer_customers.csv','Buy_Computer','id')
+model = Model('phishing.csv','class','Index')
 
 tester = Tester(model)
 

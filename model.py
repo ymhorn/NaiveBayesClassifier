@@ -73,18 +73,6 @@ class Model:
         return input_dict
 
 
-    def test(self):
-        samp = self.sample(0.7)
-        to_sample_with = self.left_sample(samp)
-
-    def sample(self,fraction):
-        return self.DF.sample(frac=fraction)
-
-    def left_sample(self,sample):
-        return self.DF[~self.DF.index.isin(sample.index)]
-
-
-
 
 # a = Model('computer_customers.csv','Buy_Computer','id')
 # pprint(a.test())
