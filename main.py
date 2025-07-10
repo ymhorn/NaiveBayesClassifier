@@ -20,22 +20,22 @@ def drop_column_fun():
            print("put a comma between columns")
            column = list(input("what columns").split(","))
    return column
-
-if __name__ == '__main__':
-
+def menu():
     print("Welcome to the program")
     path = input("What is the path to the CSV file")
     classifier = input("What is the name of the column that you would like to receive the info on")
     columns_to_drop = drop_column_fun()
     try:
-        model = Model(path,classifier,columns_to_drop)
+        model = Model(path, classifier, columns_to_drop)
         test = Tester(model)
-        if test.test() >= 0.5:
+        if test.test() >= 0.9:
             ui = UserInput(model)
-            print(f"The answer to you query is: {ui.probability()}")
+            return f"The answer to you query is: {ui.probability()}"
         else:
-            print("Your dataset is not big enough, did not pass test")
+            return "Your dataset is not big enough, did not pass test"
     except:
-        print("Un-valid model")
+        return "Un-valid model"
+if __name__ == '__main__':
+    menu()
 
 
