@@ -33,12 +33,6 @@ class Tester:
         return right / (right + wrong)
 
 
-# model = Model('phishing.csv','class','Index')
-#
-# tester = Tester(model)
-#
-# print(tester.test())
-
 
 
 

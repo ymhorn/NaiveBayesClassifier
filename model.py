@@ -57,5 +57,3 @@ class Model:
                 dict2[col] = dict3
             dict1[val] = dict2
         return dict1
-
-
