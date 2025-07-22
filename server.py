@@ -9,6 +9,8 @@ app = FastAPI()
 
 @app.get("/{path}")
 async def root(path):
+    model = Model("computer_customers.csv", 'BC', 'id')
+    probable = ProbabilityCalculater(model)
     split_path = list(path.split("."))
     dict = {}
     count = 0
@@ -39,6 +41,6 @@ async def root(path):
 
 
 if __name__ == '__main__':
-    model = Model("computer_customers.csv",'BC','id')
-    probable = ProbabilityCalculater(model)
+    # model = Model("computer_customers.csv",'BC','id')
+    # probable = ProbabilityCalculater(model)
     uvicorn.run(app,host='127.0.0.1',port=8000)
