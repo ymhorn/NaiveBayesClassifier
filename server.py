@@ -29,6 +29,7 @@ async def root(path):
             return probable.probability(dict)
     except IndexError:
         pass
+
     # except KeyError:
     #     count = 0
     #     split = [int(a) for a in split_path]
