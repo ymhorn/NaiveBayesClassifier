@@ -30,11 +30,11 @@ def menu():
         test = Tester(model)
         if test.test() >= 0.9:
             ui = UserInput(model)
-            return f"The answer to you query is: {ui.probability()}"
+            print (f"The answer to you query is: {ui.probability()}")
         else:
-            return "Your dataset is not big enough, did not pass test"
+            print( "Your dataset is not big enough, did not pass test")
     except:
-        return "Un-valid model"
+        print( "Un-valid model")
 if __name__ == '__main__':
     menu()
 
