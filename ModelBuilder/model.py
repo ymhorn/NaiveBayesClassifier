@@ -36,7 +36,6 @@ class Model:
         else:
             return item
 
-
     def dict_class(self):
         class_dict = {}
         all_values = self.amount_of_all_values(self.DF)
@@ -70,8 +69,3 @@ class Model:
             dict1[val] = dict2
         final = self.change_numpy_ints(dict1)
         return final
-
-# model = Model("phishing.csv", 'class', 'Index')
-# a = model.dict_values()
-# print(a)
-# print(model.change_numpy_ints(a))
