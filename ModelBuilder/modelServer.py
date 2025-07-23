@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
-from ModelBuilder.model import Model
-from ModelBuilder.probabilityCalculater import ProbabilityCalculater
-from ModelBuilder.tester import Tester
+from model import Model
+from probabilityCalculater import ProbabilityCalculater
+from tester import Tester
 
 app = FastAPI()
 
@@ -20,24 +20,24 @@ async def root():
     else:
         return [model.dict_values(),model.dict_class(),False]
 
-@app.get("/{path}")
-async def root(path,list_from_model):
-    split_path = list(path.split("."))
-    dict_path = {}
-    count = 0
-    a = []
-    for k , v  in list_from_model[0].items():
-        a = list(v.keys)
-    for b in a:
-        dict_path[b] = split_path[count]
-        count += 1
-    final_dict = {}
-    for keys in list_from_model[0]:
-        num = 1
-        for key, value in dict_path.items():
-            num *= list_from_model[0][keys][key][value]
-        final_dict[keys] = num * list_from_model[1][keys]
-    return max(final_dict, key=final_dict.get)
+# @app.get("/{path}")
+# async def root(path,list_from_model):
+#     split_path = list(path.split("."))
+#     dict_path = {}
+#     count = 0
+#     a = []
+#     for k , v  in list_from_model[0].items():
+#         a = list(v.keys)
+#     for b in a:
+#         dict_path[b] = split_path[count]
+#         count += 1
+#     final_dict = {}
+#     for keys in list_from_model[0]:
+#         num = 1
+#         for key, value in dict_path.items():
+#             num *= list_from_model[0][keys][key][value]
+#         final_dict[keys] = num * list_from_model[1][keys]
+#     return max(final_dict, key=final_dict.get)
 
 
 
@@ -85,5 +85,6 @@ async def root(path):
 
 if __name__ == '__main__':
     # model = Model("computer_customers.csv",'BC','id')
+    # list_from_model = [model.dict_values(),model.dict_class()]
     # probable = ProbabilityCalculater(model)
     uvicorn.run(app,host='127.0.0.1',port=8000)
