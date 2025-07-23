@@ -1,27 +1,52 @@
-from os.path import split
-
 import uvicorn
 from fastapi import FastAPI
-from model import Model
-from probabilityCalculater import ProbabilityCalculater
-from tester import Tester
+from ModelBuilder.model import Model
+from ModelBuilder.probabilityCalculater import ProbabilityCalculater
+from ModelBuilder.tester import Tester
 
 app = FastAPI()
 
-@app.get("/model")
-async def root():
-    model = Model("computer_customers.csv", 'BC', 'id')
-    return str(model.dict_values())
+# @app.get("/model")
+# async def root():
+#     model = Model("phishing.csv", 'class', 'Index')
+#     return str(model.dict_values())
 
-@app.get("/test")
+@app.get("/")
 async def root():
-    model = Model("computer_customers.csv", 'BC', 'id')
+    model = Model("phishing.csv", 'class', 'Index')
     test = Tester(model)
-    return test.test()
+    if test.test() > 0.9:
+        return [model.dict_values(),model.dict_class(),True]
+    else:
+        return [model.dict_values(),model.dict_class(),False]
+
+@app.get("/{path}")
+async def root(path,list_from_model):
+    split_path = list(path.split("."))
+    dict_path = {}
+    count = 0
+    a = []
+    for k , v  in list_from_model[0].items():
+        a = list(v.keys)
+    for b in a:
+        dict_path[b] = split_path[count]
+        count += 1
+    final_dict = {}
+    for keys in list_from_model[0]:
+        num = 1
+        for key, value in dict_path.items():
+            num *= list_from_model[0][keys][key][value]
+        final_dict[keys] = num * list_from_model[1][keys]
+    return max(final_dict, key=final_dict.get)
+
+
+
+
+
 
 @app.get("/{path}")
 async def root(path):
-    model = Model("computer_customers.csv", 'BC', 'id')
+    model = Model("phishing.csv", 'class', 'Index')
     probable = ProbabilityCalculater(model)
     test = Tester(model)
     if test.test() > 0.5:
@@ -43,8 +68,10 @@ async def root(path):
                 return probable.probability(dict)
         except IndexError:
             pass
-    else:
+    elif test.test() < 0.5:
         return "The test did not pass"
+    else:
+        return "duh"
     # except KeyError:
     #     count = 0
     #     split = [int(a) for a in split_path]

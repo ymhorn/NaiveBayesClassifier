@@ -1,5 +1,4 @@
-from model import Model
-from probabilityCalculater import ProbabilityCalculater
+from ModelBuilder.probabilityCalculater import ProbabilityCalculater
 
 
 

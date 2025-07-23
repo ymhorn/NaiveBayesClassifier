@@ -1,5 +1,4 @@
-from model import Model
-from probabilityCalculater import ProbabilityCalculater
+from ModelBuilder.probabilityCalculater import ProbabilityCalculater
 
 class Tester:
     def __init__(self,original_model):

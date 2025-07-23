@@ -1,8 +1,8 @@
 import requests
 
-url = ('http://127.0.0.1:8000/senior.high.1.fair')
+url = ('http://127.0.0.1:8000')
 
 response = requests.get(url)
 
 print(response)
-print(response.json())
+print(response.text)

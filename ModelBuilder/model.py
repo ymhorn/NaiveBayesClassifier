@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 class Model:
@@ -26,12 +27,23 @@ class Model:
         columns = self.DF.columns
         return columns.drop(classifier)
 
+    @staticmethod
+    def change_numpy_ints(item):
+        if isinstance(item,np.generic):
+            return int(item)
+        elif isinstance(item,dict):
+            return {Model.change_numpy_ints(k): Model.change_numpy_ints(v) for k, v in item.items()}
+        else:
+            return item
+
+
     def dict_class(self):
         class_dict = {}
         all_values = self.amount_of_all_values(self.DF)
         for val in self.unique_values(self.DF,self.classifier):
             unique_values = self.amount_of_unique_values(self.DF,self.classifier,val)
             class_dict[val] = unique_values / all_values
+        class_dict = self.change_numpy_ints(class_dict)
         return class_dict
 
     def dict_values(self):
@@ -56,4 +68,10 @@ class Model:
                         dict3[value] = value_count / count_val
                 dict2[col] = dict3
             dict1[val] = dict2
-        return dict1
+        final = self.change_numpy_ints(dict1)
+        return final
+
+# model = Model("phishing.csv", 'class', 'Index')
+# a = model.dict_values()
+# print(a)
+# print(model.change_numpy_ints(a))

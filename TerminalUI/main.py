@@ -1,8 +1,5 @@
-from dbm import error
-from sys import breakpointhook
-
-from model import Model
-from tester import Tester
+from ModelBuilder.model import Model
+from ModelBuilder.tester import Tester
 from userInput import UserInput
 
 def drop_column_fun():
