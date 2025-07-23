@@ -7,7 +7,7 @@ app = FastAPI()
 @app.get("/{path}")
 async def root(path):
     try:
-        list_from_model = requests.get("http://127.0.0.1:8000").json()
+        list_from_model = requests.get("http://con1:8000").json()
         split_path = list(path.split("."))
         dict_path = {}
         count = 0
